@@ -28,5 +28,5 @@ var charmander = {
 repository.push(charmander);
 
 for (var i = 0; i < repository.length; i++) {
-  document.write(repository[i].name)
+  document.write(repository[i].name + '(Height: ' + repository[i].height + ')')
 };
