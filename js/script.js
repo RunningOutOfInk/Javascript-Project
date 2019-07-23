@@ -28,5 +28,9 @@ var charmander = {
 repository.push(charmander);
 
 for (var i = 0; i < repository.length; i++) {
-  document.write(repository[i].name + '(Height: ' + repository[i].height + ')')
+  if (repository[i].height > .6) {
+    document.write(repository[i].name + ' (Height: ' + repository[i].height + ') - Wow, that\'s big! <br>');
+  } else {
+    document.write(repository[i].name + ' (Height: ' + repository[i].height + ') <br>');
+  }
 };
