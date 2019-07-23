@@ -27,10 +27,14 @@ var charmander = {
 
 repository.push(charmander);
 
+var height = ' (Height: ';
+var bigHighlight = ') - Wow, that\'s big! <br>';
+var regEnd = ') <br>';
+
 for (var i = 0; i < repository.length; i++) {
   if (repository[i].height > .6) {
-    document.write(repository[i].name + ' (Height: ' + repository[i].height + ') - Wow, that\'s big! <br>');
+    document.write(repository[i].name + height + repository[i].height + bigHighlight);
   } else {
-    document.write(repository[i].name + ' (Height: ' + repository[i].height + ') <br>');
+    document.write(repository[i].name + height + repository[i].height + regEnd);
   }
 };
