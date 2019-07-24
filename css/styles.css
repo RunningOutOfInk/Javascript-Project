@@ -1,0 +1,19 @@
+body {
+  background-color: #ddd;
+  font-size: 16px;
+  font-family: 'Merriweather', serif;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.grass-type {
+  color:  #69C23D;
+}
+
+.fire-type {
+  color: #ED6D12;
+}
+
+.water-type {
+  color: #4578ED;
+}

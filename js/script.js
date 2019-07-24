@@ -27,14 +27,24 @@ var charmander = {
 
 repository.push(charmander);
 
-var height = ' (Height: ';
-var bigHighlight = ') - Wow, that\'s big! <br>';
-var regEnd = ') <br>';
+var heightTxt = ' (Height: ';
+var bigHighlight = ') - Wow, that\'s big! </p>';
+var regEnd = ') </p>';
+var parGrass = '<p class="grass-type">';
+var parFire = '<p class="fire-type">';
+var parWater = '<p class="water-type">';
 
 for (var i = 0; i < repository.length; i++) {
+  if (repository[i].types[0]==='grass') {
+    var text = parGrass + repository[i].name + heightTxt + repository[i].height;
+  } else if (repository[i].types[0]==='fire') {
+    var text = parFire + repository[i].name + heightTxt + repository[i].height;
+  } else if (repository[i].types[0]==='water') {
+    var text = parWater + repository[i].name + heightTxt + repository[i].height;
+  }
   if (repository[i].height > .6) {
-    document.write(repository[i].name + height + repository[i].height + bigHighlight);
+    document.write(text + bigHighlight);
   } else {
-    document.write(repository[i].name + height + repository[i].height + regEnd);
+    document.write(text + regEnd);
   }
 };
