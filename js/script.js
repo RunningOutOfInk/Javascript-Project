@@ -26,20 +26,24 @@ var parFire = '<p class="fire-type">';
 var parWater = '<p class="water-type">';
 
 for (var i = 0; i < repository.length; i++) {
-  switch (repository[i].types[0]) {
-    case 'grass':
-      var text = parGrass + repository[i].name + heightTxt + repository[i].height;
-      break;
-    case 'fire':
-      var text = parFire + repository[i].name + heightTxt + repository[i].height;
-      break;
-    case 'water':
-      var text = parWater + repository[i].name + heightTxt + repository[i].height;
+  if (repository[i].types[0]) {
+    switch (repository[i].types[0]) {
+      case 'grass':
+        var text = parGrass + repository[i].name + heightTxt + repository[i].height;
+        break;
+      case 'fire':
+        var text = parFire + repository[i].name + heightTxt + repository[i].height;
+        break;
+      case 'water':
+        var text = parWater + repository[i].name + heightTxt + repository[i].height;
+    }
   }
 
-  if (repository[i].height > .6) {
-    document.write(text + bigHighlight);
-  } else {
-    document.write(text + regEnd);
+  if (repository[i].height) {
+    if (repository[i].height > .6) {
+      document.write(text + bigHighlight);
+    } else {
+      document.write(text + regEnd);
+    }
   }
 };
