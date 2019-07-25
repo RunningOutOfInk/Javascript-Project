@@ -25,25 +25,25 @@ var parGrass = '<p class="grass-type">';
 var parFire = '<p class="fire-type">';
 var parWater = '<p class="water-type">';
 
-for (var i = 0; i < repository.length; i++) {
-  if (repository[i].types[0]) {
-    switch (repository[i].types[0]) {
+repository.forEach(function(currentItem){
+  if (currentItem.types[0]) {
+    switch (currentItem.types[0]) {
       case 'grass':
-        var text = parGrass + repository[i].name + heightTxt + repository[i].height;
+        var text = parGrass;
         break;
       case 'fire':
-        var text = parFire + repository[i].name + heightTxt + repository[i].height;
+        var text = parFire;
         break;
       case 'water':
-        var text = parWater + repository[i].name + heightTxt + repository[i].height;
+        var text = parWater;
     }
   }
 
-  if (repository[i].height) {
-    if (repository[i].height > .6) {
-      document.write(text + bigHighlight);
+  if (currentItem.height) {
+    if (currentItem.height > .6) {
+      document.write(text + currentItem.name + heightTxt + currentItem.height + bigHighlight);
     } else {
-      document.write(text + regEnd);
+      document.write(text + currentItem.name + heightTxt + currentItem.height + regEnd);
     }
   }
-};
+})
