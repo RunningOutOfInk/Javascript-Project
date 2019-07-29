@@ -6,11 +6,19 @@ var parGrass = '<p class="grass-type">';
 var parFire = '<p class="fire-type">';
 var parWater = '<p class="water-type">';
 
+function isObject(val) {
+  if (val === null)
+    {return false;}
+  return ((typeof val === 'object'));
+}
+
 var pokemonRepository = (function () {
   var repository = [];
 
   function add(pokemon) {
-    repository.push(pokemon);
+    if (isObject(pokemon)) {
+      repository.push(pokemon);
+    } else {console.log("Not an object")}
   }
 
   function getAll() {
