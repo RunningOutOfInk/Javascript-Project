@@ -1,22 +1,3 @@
-var repository = [
-{
-  name: 'Bulbasaur',
-  height: .7,
-  types: ['grass','poison'],
-  number: 1
-},
-{
-  name: 'Squirtle',
-  height: .5,
-  types: ['water'],
-  number: 7
-},
-{
-  name: 'Charmander',
-  height: .6,
-  types: ['fire'],
-  number: 4
-}]
 
 var heightTxt = ' (Height: ';
 var bigHighlight = ') - Wow, that\'s big! </p>';
@@ -25,7 +6,52 @@ var parGrass = '<p class="grass-type">';
 var parFire = '<p class="fire-type">';
 var parWater = '<p class="water-type">';
 
-repository.forEach(function(currentItem){
+var pokemonRepository = (function () {
+  var repository = [];
+
+  function add(pokemon) {
+    repository.push(pokemon);
+  }
+
+  function getAll() {
+    return repository;
+  }
+
+  return {
+    add: add,
+    getAll: getAll
+  };
+})();
+
+pokemonRepository.add(
+  {
+  name: 'Bulbasaur',
+  height: .7,
+  types: ['grass','poison'],
+  number: 1
+  }
+);
+
+pokemonRepository.add(
+  {
+    name: 'Squirtle',
+    height: .5,
+    types: ['water'],
+    number: 7
+  }
+);
+
+pokemonRepository.add(
+  {
+    name: 'Charmander',
+    height: .6,
+    types: ['fire'],
+    number: 4
+  }
+);
+
+
+pokemonRepository.getAll().forEach(function(currentItem){
   if (currentItem.types[0]) {
     switch (currentItem.types[0]) {
       case 'grass':
@@ -46,4 +72,4 @@ repository.forEach(function(currentItem){
       document.write(text + currentItem.name + heightTxt + currentItem.height + regEnd);
     }
   }
-})
+});
