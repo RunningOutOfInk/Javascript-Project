@@ -1,4 +1,3 @@
-
 var heightTxt = ' (Height: ';
 var bigHighlight = ') - Wow, that\'s big! </p>';
 var regEnd = ') </p>';
@@ -6,19 +5,24 @@ var parGrass = '<p class="grass-type">';
 var parFire = '<p class="fire-type">';
 var parWater = '<p class="water-type">';
 
+//Function to check if a variable is an object
 function isObject(val) {
   if (val === null)
     {return false;}
   return ((typeof val === 'object'));
 }
 
+//Function to check if the object contains the right keys
+function isPokemonObj(obj) {
+  if (obj.hasOwnProperty("name") && obj.hasOwnProperty("height") && obj.hasOwnProperty("types") && obj.hasOwnProperty("number")) {return true};
+}
+
+//Function to create a pokemon repository
 var pokemonRepository = (function () {
   var repository = [];
 
   function add(pokemon) {
-    if (isObject(pokemon)) {
-      repository.push(pokemon);
-    } else {console.log("Not an object")}
+    if (isObject(pokemon) && isPokemonObj(pokemon)) {repository.push(pokemon);}
   }
 
   function getAll() {
