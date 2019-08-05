@@ -17,7 +17,7 @@ function isPokemonObj(obj) {
   if (obj.hasOwnProperty("name") && obj.hasOwnProperty("height") && obj.hasOwnProperty("types") && obj.hasOwnProperty("number")) {return true};
 }
 
-//Function to create a pokemon repository
+//IIFE Function to create a pokemon repository
 var pokemonRepository = (function () {
   var repository = [];
 
@@ -35,6 +35,7 @@ var pokemonRepository = (function () {
   };
 })();
 
+//Add pokemon objects to the repository
 pokemonRepository.add(
   {
   name: 'Bulbasaur',
@@ -62,7 +63,7 @@ pokemonRepository.add(
   }
 );
 
-
+//Write each object to the DOM
 pokemonRepository.getAll().forEach(function(currentItem){
   if (currentItem.types[0]) {
     switch (currentItem.types[0]) {
