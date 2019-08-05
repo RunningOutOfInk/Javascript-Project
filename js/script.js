@@ -1,10 +1,3 @@
-var heightTxt = ' (Height: ';
-var bigHighlight = ') - Wow, that\'s big! </p>';
-var regEnd = ') </p>';
-var parGrass = '<p class="grass-type">';
-var parFire = '<p class="fire-type">';
-var parWater = '<p class="water-type">';
-
 //Function to check if a variable is an object
 function isObject(val) {
   if (val === null)
