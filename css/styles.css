@@ -6,6 +6,22 @@ body {
   line-height: 1.5;
 }
 
+ul {
+  list-style-type: none;
+}
+
+button {
+  border: none;
+  font-family: inherit;
+  background-color: var(#00476a);
+  color: var(#ddd);
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 3px;
+  border-bottom: 2px solid var(rgba(0, 0, 0, 0.3));
+  transition: opacity 0.2s;
+}
+
 .grass-type {
   color:  #69C23D;
 }

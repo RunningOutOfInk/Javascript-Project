@@ -63,26 +63,26 @@ pokemonRepository.add(
   }
 );
 
+
+var $pokemonList = document.querySelector('.pokemon-list')
+
 //Write each object to the DOM
-pokemonRepository.getAll().forEach(function(currentItem){
-  if (currentItem.types[0]) {
-    switch (currentItem.types[0]) {
+pokemonRepository.getAll().forEach(function(pokemon){
+  var listItem = document.createElement('li');
+  var button = document.createElement('button');
+  button.innerText = pokemon.name;
+
+  switch (pokemon.types[0]) {
       case 'grass':
-        var text = parGrass;
+        button.classList.add('grass-type');
         break;
       case 'fire':
-        var text = parFire;
+        button.classList.add('fire-type');
         break;
       case 'water':
-        var text = parWater;
+        button.classList.add('water-type');
     }
-  }
 
-  if (currentItem.height) {
-    if (currentItem.height > .6) {
-      document.write(text + currentItem.name + heightTxt + currentItem.height + bigHighlight);
-    } else {
-      document.write(text + currentItem.name + heightTxt + currentItem.height + regEnd);
-    }
-  }
+    listItem.appendChild(button);
+    $pokemonList.appendChild(listItem);
 });
