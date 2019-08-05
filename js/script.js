@@ -58,9 +58,7 @@ var pokemonRepository = (function () {
       $pokemonList.appendChild(listItem);
 
       //Adds an event listener to the button, calling the showDetails function
-      button.addEventListener('click', function (event) {
-        pokemonRepository.showDetails(pokemon);
-      })
+      pokemonRepository.addListener(button, pokemon);
   }
 
   //Function to display details of the pokemon object
@@ -68,11 +66,19 @@ var pokemonRepository = (function () {
     console.log(pokemon);
   }
 
+  //Function to add event listener to the button
+  function addListener(button, pokemon) {
+    button.addEventListener('click', function (event) {
+      pokemonRepository.showDetails(pokemon);
+    })
+  }
+
   return {
     add: add,
     getAll: getAll,
     addListItem: addListItem,
-    showDetails: showDetails
+    showDetails: showDetails,
+    addListener: addListener
   };
 })();
 
