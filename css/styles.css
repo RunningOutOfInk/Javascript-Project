@@ -10,15 +10,19 @@ ul {
   list-style-type: none;
 }
 
+li {
+  margin: 10px;
+}
+
 button {
   border: none;
   font-family: inherit;
-  background-color: var(#00476a);
-  color: var(#ddd);
+  background-color: #00476a;
+  color: #ddd;
   text-decoration: none;
   padding: 10px;
   border-radius: 3px;
-  border-bottom: 2px solid var(rgba(0, 0, 0, 0.3));
+  border-bottom: 2px solid rgba(0, 0, 0, 0.3);
   transition: opacity 0.2s;
 }
 
