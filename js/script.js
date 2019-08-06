@@ -6,6 +6,7 @@ function isObject(val) {
 }
 
 //Function to check if the object contains the right keys
+//Need to add logic to log an error to the console
 function isPokemonObj(obj) {
   if (obj.hasOwnProperty("name") && obj.hasOwnProperty("height") && obj.hasOwnProperty("types") && obj.hasOwnProperty("number")) {return true};
 }
@@ -13,11 +14,12 @@ function isPokemonObj(obj) {
 //IIFE Function to create a pokemon repository
 var pokemonRepository = (function () {
   var repository = [];
+  var apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
   //Function to add a pokemon object to the repository
   //Checks if the pokemon parameter is an object and whether it has all the right properties
   function add(pokemon) {
-    if (isObject(pokemon) && isPokemonObj(pokemon)) {repository.push(pokemon);}
+    if (isObject(pokemon)) {repository.push(pokemon);}
   }
 
   //Function to return all objects in the repository
@@ -32,18 +34,6 @@ var pokemonRepository = (function () {
     var button = document.createElement('button');
     button.innerText = pokemon.name;
 
-    //Change the font color of the button text based on the primary type of the pokemon object
-    switch (pokemon.types[0]) {
-        case 'grass':
-          button.classList.add('grass-type');
-          break;
-        case 'fire':
-          button.classList.add('fire-type');
-          break;
-        case 'water':
-          button.classList.add('water-type');
-      }
-
       //Appends the button to a list item
       listItem.appendChild(button);
 
@@ -56,14 +46,47 @@ var pokemonRepository = (function () {
 
   //Function to display details of the pokemon object
   function showDetails(pokemon) {
-    console.log(pokemon);
+    pokemonRepository.loadDetails(pokemon).then(function () {
+      console.log(pokemon);
+    });
   }
 
-  //Function to add event listener to the button
+  //Function to add event listener, which calls showDetails, to the pokemon button
   function addListener(button, pokemon) {
     button.addEventListener('click', function (event) {
       pokemonRepository.showDetails(pokemon);
     })
+  }
+
+  //Function to load list of 150 pokemon from API
+  function loadList() {
+    return fetch(apiUrl).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      json.results.forEach(function (item) {
+        var pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        };
+        add(pokemon);
+      });
+    }).catch(function (e) {
+      console.error(e);
+    })
+  }
+
+  //Function to load details of a pokemon object from API
+  function loadDetails(item) {
+    var url = item.detailsUrl;
+    return fetch(url).then(function (response) {
+      return response.json();
+    }).then(function (details) {
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.height;
+      item.types = Object.keys(details.types);
+    }).catch(function (e) {
+      console.error(e);
+    });
   }
 
   return {
@@ -71,39 +94,16 @@ var pokemonRepository = (function () {
     getAll: getAll,
     addListItem: addListItem,
     showDetails: showDetails,
-    addListener: addListener
+    addListener: addListener,
+    loadList: loadList,
+    loadDetails: loadDetails
   };
 })();
 
-//Add pokemon objects to the repository
-pokemonRepository.add(
-  {
-  name: 'Bulbasaur',
-  height: .7,
-  types: ['grass','poison'],
-  number: 1
-  }
-);
-
-pokemonRepository.add(
-  {
-    name: 'Squirtle',
-    height: .5,
-    types: ['water'],
-    number: 7
-  }
-);
-
-pokemonRepository.add(
-  {
-    name: 'Charmander',
-    height: .6,
-    types: ['fire'],
-    number: 4
-  }
-);
-
+//Load pokemon list from API
 //Write each object in the repository to the DOM
-pokemonRepository.getAll().forEach(function(pokemon){
-  pokemonRepository.addListItem(pokemon);
+pokemonRepository.loadList().then(function () {
+  pokemonRepository.getAll().forEach(function(pokemon){
+    pokemonRepository.addListItem(pokemon);
+  });
 });
