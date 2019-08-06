@@ -6,6 +6,14 @@ body {
   line-height: 1.5;
 }
 
+.loading-message {
+  display: block;
+}
+
+.hidden-message {
+  display: none;
+}
+
 ul {
   list-style-type: none;
 }

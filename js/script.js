@@ -5,10 +5,14 @@ function isObject(val) {
   return ((typeof val === 'object'));
 }
 
-//Function to check if the object contains the right keys
-//Need to add logic to log an error to the console
-function isPokemonObj(obj) {
-  if (obj.hasOwnProperty("name") && obj.hasOwnProperty("height") && obj.hasOwnProperty("types") && obj.hasOwnProperty("number")) {return true};
+function showLoadingMessage() {
+  var $loadingMsg = document.querySelector('.loading-message');
+  $loadingMsg.classList.remove('hidden-message');
+}
+
+function hideLoadingMessage() {
+  var $loadingMsg = document.querySelector('.loading-message');
+  $loadingMsg.classList.add('hidden-message');
 }
 
 //IIFE Function to create a pokemon repository
@@ -41,12 +45,12 @@ var pokemonRepository = (function () {
       $pokemonList.appendChild(listItem);
 
       //Adds an event listener to the button
-      pokemonRepository.addListener(button, pokemon);
+      addListener(button, pokemon);
   }
 
   //Function to display details of the pokemon object
   function showDetails(pokemon) {
-    pokemonRepository.loadDetails(pokemon).then(function () {
+    loadDetails(pokemon).then(function () {
       console.log(pokemon);
     });
   }
@@ -54,7 +58,7 @@ var pokemonRepository = (function () {
   //Function to add event listener, which calls showDetails, to the pokemon button
   function addListener(button, pokemon) {
     button.addEventListener('click', function (event) {
-      pokemonRepository.showDetails(pokemon);
+      showDetails(pokemon);
     })
   }
 
@@ -100,9 +104,14 @@ var pokemonRepository = (function () {
   };
 })();
 
+//Show loading message
+showLoadingMessage();
+
 //Load pokemon list from API
 //Write each object in the repository to the DOM
 pokemonRepository.loadList().then(function () {
+  //Hide loading message now that list has loaded
+  hideLoadingMessage();
   pokemonRepository.getAll().forEach(function(pokemon){
     pokemonRepository.addListItem(pokemon);
   });
