@@ -50,7 +50,7 @@ var pokemonRepository = (function () {
       //Appends the list item to the pokemon-list ul
       $pokemonList.appendChild(listItem);
 
-      //Adds an event listener to the button, calling the showDetails function
+      //Adds an event listener to the button
       pokemonRepository.addListener(button, pokemon);
   }
 
