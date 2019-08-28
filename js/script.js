@@ -6,20 +6,20 @@ function isObject(val) {
 }
 
 function showLoadingMessage() {
-  var $loadingMsg = document.querySelector('.loading-message');
-  $loadingMsg.classList.remove('hidden-message');
+  var $loadingMsg = $('.loading-message');
+  $loadingMsg.removeClass('hidden-message');
 }
 
 function hideLoadingMessage() {
-  var $loadingMsg = document.querySelector('.loading-message');
-  $loadingMsg.classList.add('hidden-message');
+  var $loadingMsg = $('.loading-message');
+  $loadingMsg.addClass('hidden-message');
 }
 
 //IIFE Function to create a pokemon repository
 var pokemonRepository = (function () {
   var repository = [];
   var apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
-  var $modalContainer = document.querySelector('#modal-container')
+  var $modalContainer = $('#modal-container')
 
   //Function to add a pokemon object to the repository
   //Checks if the pokemon parameter is an object and whether it has all the right properties
@@ -34,7 +34,7 @@ var pokemonRepository = (function () {
 
   //Function to add the pokemon object as a button list item to the pokemon-list ul
   function addListItem(pokemon) {
-    var $pokemonList = document.querySelector('.pokemon-list');
+    var $pokemonList = $('.pokemon-list');
     var listItem = document.createElement('li');
     var button = document.createElement('button');
     button.innerText = pokemon.name;
@@ -62,7 +62,7 @@ var pokemonRepository = (function () {
 
     //Create a div to hold pokemon data
     var modal = document.createElement('div');
-    modal.classList.add('modal');
+    modal.addClass('modal');
 
     //Create an h1 element for the pokemon name
     var titleElement = document.createElement('h1');
@@ -78,7 +78,7 @@ var pokemonRepository = (function () {
 
     //Create a close button and add a listener
     var closeButtonElement = document.createElement('button');
-    closeButtonElement.classList.add('modal-close');
+    closeButtonElement.addClass('modal-close');
     closeButtonElement.innerText = 'Close';
     closeButtonElement.addEventListener('click', hideModal);
 
@@ -90,12 +90,12 @@ var pokemonRepository = (function () {
     $modalContainer.appendChild(modal);
 
     //Make the modal visible
-    $modalContainer.classList.add('is-visible');
+    $modalContainer.addClass('is-visible');
 
   }
 
   function hideModal() {
-    $modalContainer.classList.remove('is-visible');
+    $modalContainer.removeClass('is-visible');
   }
 
   //Function to add event listener, which calls showDetails, to the pokemon button
