@@ -35,15 +35,14 @@ var pokemonRepository = (function () {
   //Function to add the pokemon object as a button list item to the pokemon-list ul
   function addListItem(pokemon) {
     var $pokemonList = $('.pokemon-list');
-    var listItem = document.createElement('li');
-    var button = document.createElement('button');
-    button.innerText = pokemon.name;
+    var listItem = $('<li></li>');
+    var button = $('<button>' + pokemon.name + '</button>');
 
       //Appends the button to a list item
-      listItem.appendChild(button);
+      listItem.append(button);
 
       //Appends the list item to the pokemon-list ul
-      $pokemonList.appendChild(listItem);
+      $pokemonList.append(listItem);
 
       //Adds an event listener to the button
       addListener(button, pokemon);
@@ -57,41 +56,38 @@ var pokemonRepository = (function () {
   }
 
   function showModal(name, height, imgUrl) {
-    //Clear existing content
-    $modalContainer.innerHTML = '';
 
     //Create a div to hold pokemon data
-    var modal = document.createElement('div');
+    var modal = $('<div></div>');
     modal.addClass('modal');
 
     //Create an h1 element for the pokemon name
-    var titleElement = document.createElement('h1');
-    titleElement.innerText = name;
+    var titleElement = $('<h1>' + name + '</h1>');
 
     //Create a p element to hold the pokemon height
-    var heightElement = document.createElement('p');
-    heightElement.innerText = 'Height: ' + height;
+    var heightElement = $('<p>Height: ' + height + '</p>');
 
     //Create an img element using the img URL from the Pokemon object as src
-    var imgElement = document.createElement('img')
-    imgElement.src = imgUrl;
+    var imgElement = $('<img src="' + imgUrl + '" >')
 
     //Create a close button and add a listener
-    var closeButtonElement = document.createElement('button');
-    closeButtonElement.addClass('modal-close');
-    closeButtonElement.innerText = 'Close';
-    closeButtonElement.addEventListener('click', hideModal);
+    var closeButtonElement = $('<button>Close</button>').addClass('modal-close');
+    closeButtonElement.click(hideModal);
+
+    //Clear existing content
+    if($modalContainer.children().length) {
+          $modalContainer.children().remove();
+        }
 
     //Append elements to the modals
-    modal.appendChild(closeButtonElement);
-    modal.appendChild(titleElement);
-    modal.appendChild(heightElement);
-    modal.appendChild(imgElement);
-    $modalContainer.appendChild(modal);
+    modal.append(closeButtonElement);
+    modal.append(titleElement);
+    modal.append(heightElement);
+    modal.append(imgElement);
+    $modalContainer.append(modal);
 
     //Make the modal visible
     $modalContainer.addClass('is-visible');
-
   }
 
   function hideModal() {
@@ -100,7 +96,7 @@ var pokemonRepository = (function () {
 
   //Function to add event listener, which calls showDetails, to the pokemon button
   function addListener(button, pokemon) {
-    button.addEventListener('click', function (event) {
+    button.click(function (event) {
       showDetails(pokemon);
     })
   }
@@ -137,13 +133,13 @@ var pokemonRepository = (function () {
   }
 
   // Event listeners to close the modal
-  window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && $modalContainer.classList.contains('is-visible')) {
+  $(window).keydown(function (e) {
+      if (e.key === 'Escape' && $modalContainer.hasClass('is-visible')) {
         hideModal();
       }
     });
 
-  $modalContainer.addEventListener('click', (e) => {
+  $modalContainer.click(function (e) {
     var target = e.target;
     if (target === $modalContainer) {
       hideModal();
