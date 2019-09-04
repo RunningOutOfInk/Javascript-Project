@@ -103,27 +103,23 @@ var pokemonRepository = (function () {
 
   //Function to load list of 150 pokemon from first API
   function loadList() {
-    return fetch(apiUrl).then(function (response) {
-      return response.json();
-    }).then(function (json) {
-      json.results.forEach(function (item) {
+    return $.ajax(apiUrl, {dataType: 'json'}).then(function(item){
+      $.each(item.results, function(item) {
         var pokemon = {
           name: item.name,
           detailsUrl: item.url
-        };
-        add(pokemon);
-      });
+        }
+        add(pokemon)
+      })
     }).catch(function (e) {
       console.error(e);
-    })
+    });
   }
 
   //Function to load details of a pokemon object from second API
   function loadDetails(item) {
     var url = item.detailsUrl;
-    return fetch(url).then(function (response) {
-      return response.json();
-    }).then(function (details) {
+    return $.ajax(url).then(function (details) {
       item.imageUrl = details.sprites.front_default;
       item.height = details.height;
       item.types = Object.keys(details.types);
