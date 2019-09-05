@@ -1,3 +1,7 @@
+.page-container {
+  margin-top: 100px;
+}
+
 body {
   background-color: #ddd;
   font-size: 16px;
@@ -14,9 +18,6 @@ body {
   display: none;
 }
 
-ul {
-  list-style-type: none;
-}
 
 li {
   margin: 10px;
