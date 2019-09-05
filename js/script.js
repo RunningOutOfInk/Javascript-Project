@@ -103,11 +103,12 @@ var pokemonRepository = (function () {
 
   //Function to load list of 150 pokemon from first API
   function loadList() {
-    return $.ajax(apiUrl, {dataType: 'json'}).then(function(item){
-      $.each(item.results, function(item) {
+
+    return $.ajax(apiUrl, {dataType: 'json'}).then(function(responseJSON){
+      $.each(responseJSON.results, function(i, item){
         var pokemon = {
-          name: item.name,
-          detailsUrl: item.url
+          name: responseJSON.results[i].name,
+          detailsUrl: responseJSON.results[i].url
         }
         add(pokemon)
       })
