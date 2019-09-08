@@ -19,7 +19,6 @@ function hideLoadingMessage() {
 var pokemonRepository = (function () {
   var repository = [];
   var apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
-  var $modalContainer = $('#modal-container')
 
   //Function to add a pokemon object to the repository
   //Checks if the pokemon parameter is an object and whether it has all the right properties
@@ -46,6 +45,8 @@ var pokemonRepository = (function () {
 
   //Function to display details of the pokemon object
   function showDetails(pokemon) {
+
+    //Emptying modal elements and hiding them until they are populated with new pokemon information
     $('.modal-title').text('').addClass('invisible');
     $('.modal-body').addClass('invisible');
     $('#pokeHeight').text('');
@@ -53,6 +54,7 @@ var pokemonRepository = (function () {
     $('#pokeTypes').empty();
     $('.loading-div').removeClass('invisible');
 
+    //Get the pokemon details, edit the modal elements, then unhide the elements and show the modal 
     loadDetails(pokemon).then(function () {
       editModal(pokemon.name, pokemon.height, pokemon.imageUrl, pokemon.types);
     }).then(function(){
