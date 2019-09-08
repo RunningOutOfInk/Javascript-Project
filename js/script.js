@@ -50,35 +50,26 @@ var pokemonRepository = (function () {
 
   //Function to display details of the pokemon object
   function showDetails(pokemon) {
-    $('.modal-title').text('').addClass('invisible');
-    $('.modal-body').addClass('invisible');
-    $('#pokeHeight').text('');
-    $('#pokeImg').attr('src', '');
-    $('#pokeTypes').empty();
-    $('.loading-div').removeClass('invisible');
-
     loadDetails(pokemon).then(function () {
-      editModal(pokemon.name, pokemon.height, pokemon.imageUrl, pokemon.types);
-    }).then(function(){
-      showModal();
-    })
+      showModal(pokemon.name, pokemon.height, pokemon.imageUrl, pokemon.types);
+    });
   }
 
-  function editModal(name, height, imgUrl, types) {
+  function showModal(name, height, imgUrl, types) {
     $('.modal-title').text(name);
     $('#pokeHeight').text("Height: " + height);
     $('#pokeImg').attr('src', imgUrl);
 
+    var $pokeTypes = $('#pokeTypes');
     $.each(types, function(i, type){
-      $('#pokeTypes').append("<li class='text-capitalize'>" + type + "</li>");
+      $pokeTypes.append("<li>" + type + "</li>");
     });
+
+    $('#pokeModal').modal(options)
   }
 
-  function showModal() {
-    $('.modal-title').removeClass('invisible');
-    $('.modal-body').removeClass('invisible');
-    $('.loading-div').addClass('invisible');
-    $('#pokeModal').modal()
+  function hideModal() {
+    $modalContainer.removeClass('is-visible');
   }
 
   //Function to add event listener, which calls showDetails, to the pokemon button
@@ -125,9 +116,14 @@ var pokemonRepository = (function () {
   }
 
   return {
+    add: add,
     getAll: getAll,
     addListItem: addListItem,
+    showDetails: showDetails,
+    addListener: addListener,
     loadList: loadList,
+    loadDetails: loadDetails,
+    showModal: showModal
   };
 })();
 
