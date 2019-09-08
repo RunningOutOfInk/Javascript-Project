@@ -37,7 +37,6 @@ var pokemonRepository = (function () {
     var $pokemonList = $('.pokemon-list');
     var listItem = $('<li></li>');
     var button = $('<button>' + pokemon.name + '</button>');
-    button.addClass('btn btn-light btn-lg btn-block');
 
       //Appends the button to a list item
       listItem.append(button);
@@ -104,6 +103,7 @@ var pokemonRepository = (function () {
 
   //Function to load list of 150 pokemon from first API
   function loadList() {
+
     return $.ajax(apiUrl, {dataType: 'json'}).then(function(responseJSON){
       $.each(responseJSON.results, function(i, item){
         var pokemon = {
