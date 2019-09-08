@@ -35,10 +35,14 @@ var pokemonRepository = (function () {
   //Function to add the pokemon object as a button list item to the pokemon-list ul
   function addListItem(pokemon) {
     var $pokemonList = $('.pokemon-list');
-    var button = $('<button type="button" data-toggle="modal" data-target="#pokeModal">' + pokemon.name + '</button>').addClass('list-group-item list-group-item-action text-capitalize');
+    var listItem = $('<li></li>');
+    var button = $('<button type="button" data-toggle="modal" data-target="#pokeModal">' + pokemon.name + '</button>').addClass('btn btn-light btn-lg btn-block text-capitalize');
 
-      //Appends the list item to the pokemon-list div list group
-      $pokemonList.append(button);
+      //Appends the button to a list item
+      listItem.append(button);
+
+      //Appends the list item to the pokemon-list ul
+      $pokemonList.append(listItem);
 
       //Adds an event listener to the button
       addListener(button, pokemon); //Need to update to use bootstrap
