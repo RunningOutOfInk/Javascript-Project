@@ -17,3 +17,19 @@ body {
 .hidden-message {
   display: none;
 }
+
+li {
+  margin: 10px;
+}
+
+.grass-type {
+  color:  #69C23D;
+}
+
+.fire-type {
+  color: #ED6D12;
+}
+
+.water-type {
+  color: #4578ED;
+}
