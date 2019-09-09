@@ -8,6 +8,69 @@
     <title>Simple JS App</title>
   </head>
   <body>
+
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <a class="navbar-brand" href="#">Pokedex</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Generation One <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class='container page-container'>
+      <p class='loading-message hidden-message'>Please wait, list is loading...</p>
+      <div class='list-group pokemon-list'></div>
+
+      <div class="modal fade" id="pokeModal" tabindex="-1" role="dialog" aria-labelledby="pokeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-capitalize" id="pokeModalLabel"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="text-center loading-div">
+              <div class="spinner-border text-secondary loading-div" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+            <div class="modal-body">
+              <div class='row'>
+                <div class='col'>
+                  <p id="pokeHeight"></p>
+                </div>
+                <div class='col'>
+                  <p>Types:</p>
+                  <ul class='list-unstyled' id="pokeTypes"></ul>
+                </div>
+                <div class='col'>
+                  <img id="pokeImg">
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class='container'>
+      <div class='row m-5 text-center'>
+        <div class='col'></div>
+        <div class='col-8'>To see more of my work, visit me at <a href="http://www.erinnienhuis.com" target="_blank">www.erinnienhuis.com</a>!</div>
+        <div class='col'></div>
+      </div>
+    </footer>
+
     <p class='loading-message hidden-message'>Please wait, list is loading...</p>
     <ul class='pokemon-list'></ul>
     <div id='modal-container'></div>
@@ -15,5 +78,6 @@
     <script src="js/promise-polyfill.js"></script>
     <script src="js/fetch.umd.js"></script>
     <script src="js/script.js"></script>
+
   </body>
 </html>
