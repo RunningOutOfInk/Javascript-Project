@@ -36,11 +36,11 @@ var pokemonRepository = (function () {
     var $pokemonList = $('.pokemon-list');
     var button = $('<button type="button" data-toggle="modal" data-target="#pokeModal">' + pokemon.name + '</button>').addClass('list-group-item list-group-item-action text-capitalize');
 
-      //Appends the list item to the pokemon-list div list group
-      $pokemonList.append(button);
+    //Appends the list item to the pokemon-list div list group
+    $pokemonList.append(button);
 
-      //Adds an event listener to the button
-      addListener(button, pokemon); //Need to update to use bootstrap
+    //Adds an event listener to the button
+    addListener(button, pokemon); //Need to update to use bootstrap
   }
 
   //Function to display details of the pokemon object
@@ -54,7 +54,7 @@ var pokemonRepository = (function () {
     $('#pokeTypes').empty();
     $('.loading-div').removeClass('invisible');
 
-    //Get the pokemon details, edit the modal elements, then unhide the elements and show the modal 
+    //Get the pokemon details, edit the modal elements, then unhide the elements and show the modal
     loadDetails(pokemon).then(function () {
       editModal(pokemon.name, pokemon.height, pokemon.imageUrl, pokemon.types);
     }).then(function(){
@@ -91,8 +91,8 @@ var pokemonRepository = (function () {
     return $.ajax(apiUrl, {dataType: 'json'}).then(function(responseJSON){
       $.each(responseJSON.results, function(i, item){
         var pokemon = {
-          name: responseJSON.results[i].name,
-          detailsUrl: responseJSON.results[i].url
+          name: item.name,
+          detailsUrl: item.url
         }
         add(pokemon)
       })
