@@ -1,8 +1,11 @@
+/*global $*/
+
 //Function to check if a variable is an object
 function isObject(val) {
-  if (val === null)
-    {return false;}
-  return ((typeof val === 'object'));
+  if (val === null) {
+    return false;
+  }
+  return typeof val === 'object';
 }
 
 function showLoadingMessage() {
@@ -16,14 +19,16 @@ function hideLoadingMessage() {
 }
 
 //IIFE Function to create a pokemon repository
-var pokemonRepository = (function () {
+var pokemonRepository = (function() {
   var repository = [];
   var apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
   //Function to add a pokemon object to the repository
   //Checks if the pokemon parameter is an object and whether it has all the right properties
   function add(pokemon) {
-    if (isObject(pokemon)) {repository.push(pokemon);}
+    if (isObject(pokemon)) {
+      repository.push(pokemon);
+    }
   }
 
   //Function to return all objects in the repository
@@ -34,7 +39,11 @@ var pokemonRepository = (function () {
   //Function to add the pokemon object as a button list item to the pokemon-list ul
   function addListItem(pokemon) {
     var $pokemonList = $('.pokemon-list');
-    var button = $('<button type="button" data-toggle="modal" data-target="#pokeModal">' + pokemon.name + '</button>').addClass('list-group-item list-group-item-action text-capitalize');
+    var button = $(
+      '<button type="button" data-toggle="modal" data-target="#pokeModal">' +
+        pokemon.name +
+        '</button>'
+    ).addClass('list-group-item list-group-item-action text-capitalize');
 
     //Appends the list item to the pokemon-list div list group
     $pokemonList.append(button);
@@ -45,9 +54,10 @@ var pokemonRepository = (function () {
 
   //Function to display details of the pokemon object
   function showDetails(pokemon) {
-
     //Emptying modal elements and hiding them until they are populated with new pokemon information
-    $('.modal-title').text('').addClass('invisible');
+    $('.modal-title')
+      .text('')
+      .addClass('invisible');
     $('.modal-body').addClass('invisible');
     $('#pokeHeight').text('');
     $('#pokeImg').attr('src', '');
@@ -55,20 +65,27 @@ var pokemonRepository = (function () {
     $('.loading-div').removeClass('invisible');
 
     //Get the pokemon details, edit the modal elements, then unhide the elements and show the modal
-    loadDetails(pokemon).then(function () {
-      editModal(pokemon.name, pokemon.height, pokemon.imageUrl, pokemon.types);
-    }).then(function(){
-      showModal();
-    })
+    loadDetails(pokemon)
+      .then(function() {
+        editModal(
+          pokemon.name,
+          pokemon.height,
+          pokemon.imageUrl,
+          pokemon.types
+        );
+      })
+      .then(function() {
+        showModal();
+      });
   }
 
   function editModal(name, height, imgUrl, types) {
     $('.modal-title').text(name);
-    $('#pokeHeight').text("Height: " + height);
+    $('#pokeHeight').text('Height: ' + height);
     $('#pokeImg').attr('src', imgUrl);
 
-    $.each(types, function(i, type){
-      $('#pokeTypes').append("<li class='text-capitalize'>" + type + "</li>");
+    $.each(types, function(i, type) {
+      $('#pokeTypes').append('<li class=\'text-capitalize\'>' + type + '</li>');
     });
   }
 
@@ -76,56 +93,60 @@ var pokemonRepository = (function () {
     $('.modal-title').removeClass('invisible');
     $('.modal-body').removeClass('invisible');
     $('.loading-div').addClass('invisible');
-    $('#pokeModal').modal()
+    $('#pokeModal').modal();
   }
 
   //Function to add event listener, which calls showDetails, to the pokemon button
   function addListener(button, pokemon) {
-    button.click(function (event) {
+    button.click(function() {
       showDetails(pokemon);
-    })
+    });
   }
 
   //Function to load list of 150 pokemon from first API
   function loadList() {
-    return $.ajax(apiUrl, {dataType: 'json'}).then(function(responseJSON){
-      $.each(responseJSON.results, function(i, item){
-        var pokemon = {
-          name: item.name,
-          detailsUrl: item.url
-        }
-        add(pokemon)
+    return $.ajax(apiUrl, { dataType: 'json' })
+      .then(function(responseJSON) {
+        $.each(responseJSON.results, function(i, item) {
+          var pokemon = {
+            name: item.name,
+            detailsUrl: item.url
+          };
+          add(pokemon);
+        });
       })
-    }).catch(function (e) {
-      console.error(e);
-    });
+      .catch(function(e) {
+        alert(e.message);
+      });
   }
 
   //Function to load details of a pokemon object from second API
   function loadDetails(item) {
     var url = item.detailsUrl;
-    return $.ajax(url).then(function (details) {
-      item.imageUrl = details.sprites.front_default;
-      item.height = details.height;
+    return $.ajax(url)
+      .then(function(details) {
+        item.imageUrl = details.sprites.front_default;
+        item.height = details.height;
 
-      item.types = [];
+        item.types = [];
 
-      $.each(details.types, function(i, types) {
-        $.each(types.type, function(property, value) {
-          if (property == "name") {
-            item.types.push(value);
-          }
+        $.each(details.types, function(i, types) {
+          $.each(types.type, function(property, value) {
+            if (property == 'name') {
+              item.types.push(value);
+            }
+          });
         });
       })
-    }).catch(function (e) {
-      console.error(e);
-    });
+      .catch(function(e) {
+        alert(e.message);
+      });
   }
 
   return {
     getAll: getAll,
     addListItem: addListItem,
-    loadList: loadList,
+    loadList: loadList
   };
 })();
 
@@ -134,10 +155,10 @@ showLoadingMessage();
 
 //Load pokemon list from API
 //Write each object in the repository to the DOM
-pokemonRepository.loadList().then(function () {
+pokemonRepository.loadList().then(function() {
   //Hide loading message now that list has loaded
   hideLoadingMessage();
-  pokemonRepository.getAll().forEach(function(pokemon){
+  pokemonRepository.getAll().forEach(function(pokemon) {
     pokemonRepository.addListItem(pokemon);
   });
 });
